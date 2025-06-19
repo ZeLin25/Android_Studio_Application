@@ -43,6 +43,6 @@ fun GreetingText(message: String, modifier: Modifier = Modifier) {
 @Composable
 fun HelloJoaoPreview() {
     WikiFutTheme {
-        GreetingText(message = "Happy Birthdate João!")
+        GreetingText(message = "Happy Birthdate João!!!")
     }
 }

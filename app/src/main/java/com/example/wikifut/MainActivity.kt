@@ -1,9 +1,11 @@
 package com.example.wikifut
 
 import android.os.Bundle
+import androidx.compose.foundation.layout.Row
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -17,6 +19,7 @@ import com.example.wikifut.ui.theme.WikiFutTheme
 
 
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +28,8 @@ class MainActivity : ComponentActivity() {
             WikiFutTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     GreetingText(
-                        message = "João",
+                        message = "Happy Birthdate João!",
+                        from = "From Emma",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -35,18 +39,24 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingText(message: String, modifier: Modifier = Modifier) {
-    Text(
-        text = message,
-        fontSize = 100.sp,
-        lineHeight = 116.sp
-    )
+fun GreetingText(message: String,from: String, modifier: Modifier = Modifier) {
+    Column {
+        Text(
+            text = message,
+            fontSize = 30.sp,
+            lineHeight = 116.sp
+        )
+        Text(
+            text = from,
+            fontSize = 36.sp
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun HelloJoaoPreview() {
     WikiFutTheme {
-        GreetingText(message = "Happy Birthdate João!")
+        GreetingText(message = "Happy Birthdate João!", from = "From Emma")
     }
 }

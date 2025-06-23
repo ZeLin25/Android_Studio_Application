@@ -1,37 +1,45 @@
-package com.example.wikifut.ui.screens
+package com.example.wikifut.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavBackStackEntry
 import coil.compose.rememberAsyncImagePainter
 import com.example.wikifut.viewmodel.WikiFutViewModel
 
 @Composable
-fun TeamDetailScreen(backStackEntry: NavBackStackEntry, viewModel: WikiFutViewModel = viewModel()) {
-    val teamId = backStackEntry.arguments?.getString("teamId")?.toIntOrNull()
-    val team = teamId?.let { viewModel.getTeamById(it) }
+fun TeamDetailScreen(teamId: Int) {
+    val viewModel: WikiFutViewModel = viewModel()
+    val team = viewModel.getTeamById(teamId)
 
-    team?.let {
-        Column(modifier = Modifier.padding(16.dp)) {
+    if (team != null) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            Text(text = team.name, style = MaterialTheme.typography.headlineMedium)
+            Spacer(modifier = Modifier.height(12.dp))
             Image(
-                painter = rememberAsyncImagePainter(it.logoUrl),
-                contentDescription = it.name,
+                painter = rememberAsyncImagePainter(team.logoUrl),
+                contentDescription = "Escudo do time",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp),
-                contentScale = ContentScale.Fit
+                    .height(200.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Text(it.name, style = MaterialTheme.typography.headlineSmall)
-            Text(it.country, style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = "País: ${team.country}",
+                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
+            )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(it.description, style = MaterialTheme.typography.bodyMedium)
+            Text(text = team.description)
         }
-    } ?: Text("Equipas não encontrado.")
+    } else {
+        Text("Time não encontrado.")
+    }
 }

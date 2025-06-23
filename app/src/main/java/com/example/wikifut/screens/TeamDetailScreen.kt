@@ -26,7 +26,7 @@ fun TeamDetailScreen(teamId: Int) {
             Spacer(modifier = Modifier.height(12.dp))
             Image(
                 painter = rememberAsyncImagePainter(team.logoUrl),
-                contentDescription = "Escudo do time",
+                contentDescription = "Logo da equipa",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
@@ -40,6 +40,6 @@ fun TeamDetailScreen(teamId: Int) {
             Text(text = team.description)
         }
     } else {
-        Text("Time não encontrado.")
+        Text("Equipa não encontrado.")
     }
 }
